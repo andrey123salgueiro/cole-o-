@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coleção — Catálogo pessoal em preto e dourado</title>
+  <meta name="description" content="Organize e visualize suas coleções de qualquer coisa em um site elegante preto e dourado." />
+
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #000000;
+      --gold: #D4AF37; /* dourado clássico */
+      --gold-weak: #b9922b;
+      --gold-strong: #f0c94d;
+      --text: #f5f5f5;
+      --muted: #a3a3a3;
+      --card: #0d0d0d;
+      --border: #1a1a1a;
+      --focus: #f0c94d;
+      --danger: #ff5252;
+      --success: #5ec46d;
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { color: var(--gold-strong); }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid var(--border);
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo {
+      width: 44px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, #1a1a1a 0%, #0b0b0b 60%, #000 100%);
+      border: 1px solid var(--gold-weak);
+      box-shadow: 0 0 0 2px rgba(212,175,55,0.15), inset 0 0 20px rgba(212,175,55,0.08);
+      overflow: hidden;
+    }
+    .brand-title {
+      font-family: "Playfair Display", serif;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: var(--gold);
+      font-size: 1.25rem;
+    }
+    .menu {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .menu a {
+      text-transform: uppercase;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+    }
+    .menu a:hover { color: var(--gold-strong); }
+    .btn {
+      padding: 10px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      background: transparent;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .btn:hover {
+      border-color: var(--gold-strong);
+      color: var(--gold-strong);
+      box-shadow: 0 0 0 2px rgba(212,175,55,0.12);
+    }
+    .btn.primary {
+      background: linear-gradient(180deg, #2a2000 0%, #1a1400 100%);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 72px 20px 48px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      background:
+        radial-gradient(1200px 400px at 50% -50%, rgba(212,175,55,0.06), transparent 46%),
+        radial-gradient(800px 240px at 10% -20%, rgba(212,175,55,0.05), transparent 46%);
+    }
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(36px, 6vw, 64px);
+      color: var(--gold);
+      margin: 16px 0 10px;
+    }
+    .hero p {
+      max-width: 720px;
+      margin: 0 auto 24px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .hero .cta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Sections */
+    section {
+      padding: 40px 20px;
+    }
+    section .wrap { padding: 0; }
+
+    /* Cards & grids */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat( auto-fit, minmax(260px, 1fr) );
+      gap: 16px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      transition: border-color 0.18s ease, transform 0.18s ease;
+    }
+    .card:hover { border-color: #252525; transform: translateY(-1px); }
+    .card h3 {
+      margin: 0 0 6px;
+      font-family: "Playfair Display", serif;
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+    .card p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+    /* Forms */
+    .form {
+      display: grid;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .row { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; }
+    .field {
+      display: grid;
+      gap: 8px;
+    }
+    label {
+      font-size: 0.85rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    input[type="text"], input[type="date"], input[type="number"], textarea, select {
+      width: 100%;
+      padding: 12px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #0a0a0a;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.18s ease, box-shadow 0.18s ease;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--gold-weak);
+      box-shadow: 0 0 0 3px rgba(212,175,55,0.12);
+    }
+
+    /* Collections */
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .section-title h2 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      color: var(--gold);
+      font-size: 1.6rem;
+    }
+    .badge {
+      border: 1px solid var(--gold-weak);
+      color: var(--gold);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+    }
+
+    .collection-card {
+      display: grid;
+      gap: 12px;
+    }
+    .collection-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .collection-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Items list in a collection */
+    .items {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .item {
+      display: grid;
+      gap: 8px;
+      padding: 10px;
+      border: 1px dashed #232323;
+      border-radius: 12px;
+      background: #0a0a0a;
+    }
+    .item-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .item-title { color: var(--text); font-weight: 600; }
+    .item-sub { color: var(--muted); font-size: 0.9rem; }
+
+    /* About */
+    .about {
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .quote {
+      border-left: 2px solid var(--gold-weak);
+      padding-left: 14px;
+      color: var(--text);
+      margin: 12px 0 0;
+      font-style: italic;
+    }
+
+    /* Profile & settings */
+    .profile-grid { display: grid; gap: 16px; grid-template-columns: 1fr 1fr; }
+    .avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      border: 1px solid var(--gold-weak);
+      background: #0a0a0a;
+    }
+    .toggle {
+      display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+    }
+    .toggle input { accent-color: var(--gold); }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 24px 20px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.65);
+      display: none;
+      align-items: center; justify-content: center;
+      z-index: 2000;
+    }
+    .modal {
+      width: min(560px, 92vw);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .modal header {
+      position: static;
+      background: transparent;
+      border: 0;
+      padding: 0;
+    }
+    .modal h3 {
+      margin: 0 0 8px;
+      font-family: "Playfair Display", serif;
+      color: var(--gold);
+      font-size: 1.3rem;
+    }
+    .modal .close {
+      float: right;
+      color: var(--muted);
+      cursor: pointer;
+    }
+    .hidden { display: none !important; }
+
+    /* Small helpers */
+    .spacer-8 { height: 8px; }
+    .spacer-16 { height: 16px; }
+    .spacer-24 { height: 24px; }
+
+    /* Responsive tweaks */
+    @media (max-width: 720px) {
+      .row { grid-template-columns: 1fr; }
+      .profile-grid { grid-template-columns: 1fr; }
+      .menu { gap: 14px; }
+      .brand-title { font-size: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="wrap">
+      <nav class="nav">
+        <div class="brand">
+          <!-- Logo com mapa antigo (SVG inline) -->
+          <div class="logo" aria-hidden="true">
+            <svg viewBox="0 0 100 100" width="40" height="40">
+              <!-- Borda dourada -->
+              <circle cx="50" cy="50" r="48" fill="none" stroke="#D4AF37" stroke-width="2"/>
+              <!-- Retícula de mapa -->
+              <g stroke="#8f751f" stroke-width="0.6" opacity="0.7">
+                <!-- Meridianos -->
+                <path d="M50,5 L50,95"/>
+                <path d="M25,10 L25,90"/>
+                <path d="M75,10 L75,90"/>
+                <!-- Paralelos -->
+                <path d="M10,30 H90"/>
+                <path d="M10,50 H90"/>
+                <path d="M10,70 H90"/>
+                <!-- Círculo interno suave -->
+                <circle cx="50" cy="50" r="36" fill="none" stroke="#6e5816" stroke-width="0.8" opacity="0.5"/>
+              </g>
+              <!-- Rosa dos ventos -->
+              <g fill="#D4AF37" stroke="#D4AF37" stroke-width="0.4" opacity="0.95">
+                <polygon points="50,22 54,36 50,34 46,36" />
+                <polygon points="50,78 54,64 50,66 46,64" />
+                <polygon points="22,50 36,46 34,50 36,54" />
+                <polygon points="78,50 64,46 66,50 64,54" />
+              </g>
+              <!-- Continentes estilizados (formas orgânicas) -->
+              <path d="M32,40 C28,36 30,30 36,28 C42,26 48,28 48,32 C48,36 44,38 40,38 C38,40 34,42 32,40 Z" fill="#614d12" opacity="0.6"/>
+              <path d="M62,58 C66,62 74,62 76,56 C78,50 72,46 66,48 C62,50 58,54 62,58 Z" fill="#614d12" opacity="0.6"/>
+            </svg>
+          </div>
+          <div class="brand-title">COLEÇÃO</div>
+        </div>
+
+        <div class="menu" role="navigation" aria-label="Navegação principal">
+          
+          <a href="#colecoes">Coleções</a>
+          <a href="sobre.html">Sobre</a>
+          <button class="btn" id="openAuth">Entrar / Criar conta</button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="wrap">
+      <h1>Coleção</h1>
+      <p>A melhor maneira de ver a sua coleção de qualquer coisa. Crie categorias, cadastre itens, registre detalhes e acompanhe suas conquistas com elegância em preto e dourado.</p>
+      <div class="cta">
+        <a href="#colecoes"><button class="btn primary">Ver coleções</button></a>
+        <button class="btn" id="newCollectionBtn">Nova coleção</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Coleções -->
+  <section id="colecoes">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>Minhas coleções</h2>
+        <span class="badge" id="collectionsCount">0 coleções</span>
+      </div>
+
+      <!-- Formulário de nova coleção -->
+      <div class="card" id="newCollectionCard" aria-live="polite">
+        <h3>Criar nova coleção</h3>
+        <p>Defina um nome, categoria e uma descrição. Você poderá adicionar itens depois.</p>
+
+        <form class="form" id="collectionForm">
+          <div class="row">
+            <div class="field">
+              <label for="colName">Nome da coleção</label>
+              <input type="text" id="colName" name="colName" placeholder="Ex.: Moedas antigas" required />
+            </div>
+            <div class="field">
+              <label for="colCategory">Categoria</label>
+              <select id="colCategory" name="colCategory" required>
+                <option value="">Selecione</option>
+                <option>Moedas</option>
+                <option>Livros</option>
+                <option>Action figures</option>
+                <option>Cartas</option>
+                <option>Discos</option>
+                <option>Selos</option>
+                <option>Memorabilia</option>
+                <option>Outros</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="colDesc">Descrição</label>
+            <textarea id="colDesc" name="colDesc" placeholder="Conte sobre a sua coleção..."></textarea>
+          </div>
+
+          <div class="collection-actions">
+            <button type="submit" class="btn primary">Salvar coleção</button>
+            <button type="button" class="btn" id="cancelNewCollection">Cancelar</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="spacer-16"></div>
+
+      <!-- Grid de coleções -->
+      <div class="grid" id="collectionsGrid">
+        <!-- Cartões de coleções são inseridos via JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section id="sobre">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>Sobre o projeto</h2>
+      </div>
+      <div class="card">
+        <div class="about">
+          <p>Este é um espaço para apaixonados por guardar, catalogar e compartilhar suas paixões. Seja você um colecionador de selos raros, edições limitadas ou memórias afetivas, é aqui que suas histórias ganham forma.</p>
+          <p class="quote">“Coleção é mais do que objetos: é o mapa das nossas curiosidades.”</p>
+          <div class="spacer-16"></div>
+          <p>Você pode criar categorias, cadastrar itens com fotos, datas e valores estimados, e decidir o que quer manter privado ou compartilhar com amigos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Perfil e configurações -->
+  <section id="perfil">
+    <div class="wrap">
+      <div class="section-title">
+        <h2>Perfil e configurações</h2>
+      </div>
+
+      <div class="profile-grid">
+        <div class="card">
+          <h3>Meu perfil</h3>
+          <div style="display:flex; align-items:center; gap:14px;">
+            <div class="avatar" aria-hidden="true"></div>
+            <div>
+              <div id="profileName" style="font-weight:600;">Visitante</div>
+              <div id="profileEmail" class="item-sub">Não conectado</div>
+            </div>
+          </div>
+          <div class="spacer-16"></div>
+          <button class="btn" id="editProfileBtn">Editar perfil</button>
+        </div>
+
+        <div class="card">
+          <h3>Privacidade</h3>
+          <label class="toggle">
+            <input type="checkbox" id="privacyPublic" />
+            <span>Tornar minhas coleções públicas</span>
+          </label>
+          <div class="spacer-8"></div>
+          <label class="toggle">
+            <input type="checkbox" id="privacyShowValues" />
+            <span>Exibir valores estimados dos itens</span>
+          </label>
+          <div class="spacer-16"></div>
+          <button class="btn primary" id="saveSettings">Salvar configurações</button>
+          <span id="settingsSaved" class="item-sub" style="margin-left:12px;"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer>
+    <div class="wrap">
+      <div>© <span id="year"></span> Coleção. Tema em preto e dourado com logo de mapa antigo.</div>
+    </div>
+  </footer>
+
+  <!-- Modal de autenticação -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+      <span class="close" id="closeAuth" aria-label="Fechar">✕</span>
+      <h3 id="authTitle">Entrar / Criar conta</h3>
+      <p class="item-sub">Entre para salvar seu perfil e sincronizar suas coleções no seu navegador.</p>
+
+      <form class="form" id="authForm">
+        <div class="field">
+          <label for="authName">Nome</label>
+          <input type="text" id="authName" placeholder="Seu nome" required />
+        </div>
+        <div class="field">
+          <label for="authEmail">E-mail</label>
+          <input type="text" id="authEmail" placeholder="voce@exemplo.com" required />
+        </div>
+        <div class="row">
+          <button type="submit" class="btn primary">Continuar</button>
+          <button type="button" class="btn" id="authCancel">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal de adicionar item -->
+  <div class="modal-backdrop" id="itemModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="itemTitle">
+      <span class="close" id="closeItem" aria-label="Fechar">✕</span>
+      <h3 id="itemTitle">Adicionar item à coleção</h3>
+      <form class="form" id="itemForm">
+        <input type="hidden" id="itemCollectionId" />
+        <div class="row">
+          <div class="field">
+            <label for="itemName">Nome do item</label>
+            <input type="text" id="itemName" placeholder="Ex.: Moeda 1 Real 1994" required />
+          </div>
+          <div class="field">
+            <label for="itemDate">Data de aquisição</label>
+            <input type="date" id="itemDate" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="itemValue">Valor estimado (R$)</label>
+            <input type="number" id="itemValue" min="0" step="0.01" placeholder="Ex.: 120.00" />
+          </div>
+          <div class="field">
+            <label for="itemImage">URL da imagem (opcional)</label>
+            <input type="text" id="itemImage" placeholder="https://..." />
+          </div>
+        </div>
+        <div class="field">
+          <label for="itemDesc">Descrição</label>
+          <textarea id="itemDesc" placeholder="Detalhes, estado de conservação, proveniência..."></textarea>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn primary">Salvar item</button>
+          <button type="button" class="btn" id="itemCancel">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Estado básico com persistência localStorage
+    const state = {
+      profile: JSON.parse(localStorage.getItem('profile') || '{"name":"Visitante","email":"Não conectado"}'),
+      settings: JSON.parse(localStorage.getItem('settings') || '{"public":false,"showValues":true}'),
+      collections: JSON.parse(localStorage.getItem('collections') || '[]')
+    };
+
+    // Utilidades
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+    const save = () => {
+      localStorage.setItem('profile', JSON.stringify(state.profile));
+      localStorage.setItem('settings', JSON.stringify(state.settings));
+      localStorage.setItem('collections', JSON.stringify(state.collections));
+      render();
+    };
+    const fmtBRL = (n) => {
+      try { return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(n); }
+      catch { return `R$ ${Number(n).toFixed(2)}`; }
+    };
+
+    // Renderização
+    function renderProfile() {
+      $('#profileName').textContent = state.profile.name || 'Visitante';
+      $('#profileEmail').textContent = state.profile.email || 'Não conectado';
+      $('#privacyPublic').checked = !!state.settings.public;
+      $('#privacyShowValues').checked = !!state.settings.showValues;
+    }
+
+    function renderCollections() {
+      const grid = $('#collectionsGrid');
+      grid.innerHTML = '';
+      $('#collectionsCount').textContent = `${state.collections.length} ${state.collections.length === 1 ? 'coleção' : 'coleções'}`;
+
+      if (!state.collections.length) {
+        const empty = document.createElement('div');
+        empty.className = 'card';
+        empty.innerHTML = `
+          <h3>Sem coleções ainda</h3>
+          <p>Crie sua primeira coleção clicando em “Nova coleção” ou preenchendo o formulário acima.</p>
+        `;
+        grid.appendChild(empty);
+        return;
+      }
+
+      state.collections.forEach((col) => {
+        const el = document.createElement('div');
+        el.className = 'card collection-card';
+        const count = (col.items || []).length;
+
+        el.innerHTML = `
+          <h3>${col.name}</h3>
+          <div class="collection-meta">
+            <span class="badge">${col.category}</span>
+            <span>•</span>
+            <span>${count} ${count === 1 ? 'item' : 'itens'}</span>
+          </div>
+          ${col.desc ? `<p>${col.desc}</p>` : ''}
+          <div class="collection-actions">
+            <button class="btn" data-action="add-item" data-id="${col.id}">Adicionar item</button>
+            <button class="btn" data-action="delete-col" data-id="${col.id}">Excluir coleção</button>
+          </div>
+          <div class="items" id="items-${col.id}">
+            ${(col.items || []).map(item => `
+              <div class="item">
+                <div class="item-head">
+                  <div class="item-title">${item.name}</div>
+                  <div>
+                    <button class="btn" data-action="delete-item" data-id="${col.id}" data-item="${item.id}">Remover</button>
+                  </div>
+                </div>
+                ${item.image ? `<img src="${item.image}" alt="Imagem do item" style="width:100%; border-radius:8px; border:1px solid #1a1a1a;" />` : ''}
+                <div class="item-sub">
+                  ${item.date ? `Adquirido em: ${new Date(item.date).toLocaleDateString('pt-BR')}` : ''}
+                  ${item.date && (state.settings.showValues && item.value) ? ' • ' : ''}
+                  ${state.settings.showValues && item.value ? `Valor: ${fmtBRL(item.value)}` : ''}
+                </div>
+                ${item.desc ? `<p class="item-sub" style="margin:0;">${item.desc}</p>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        `;
+        grid.appendChild(el);
+      });
+
+      // Bind ações dos botões dentro das coleções
+      grid.querySelectorAll('button[data-action]').forEach(btn => {
+        const action = btn.getAttribute('data-action');
+        const id = btn.getAttribute('data-id');
+        const itemId = btn.getAttribute('data-item');
+
+        if (action === 'add-item') {
+          btn.onclick = () => openItemModal(id);
+        } else if (action === 'delete-col') {
+          btn.onclick = () => {
+            if (confirm('Excluir esta coleção?')) {
+              state.collections = state.collections.filter(c => c.id !== id);
+              save();
+            }
+          };
+        } else if (action === 'delete-item') {
+          btn.onclick = () => {
+            const col = state.collections.find(c => c.id === id);
+            if (!col) return;
+            col.items = (col.items || []).filter(i => i.id !== itemId);
+            save();
+          };
+        }
+      });
+    }
+
+    function render() {
+      renderProfile();
+      renderCollections();
+    }
+
+    // Inicialização
+    document.addEventListener('DOMContentLoaded', () => {
+      $('#year').textContent = new Date().getFullYear();
+      render();
+    });
+
+    // Controle do formulário de coleção
+    const newCollectionCard = $('#newCollectionCard');
+    const newCollectionBtn = $('#newCollectionBtn');
+    const cancelNewCollection = $('#cancelNewCollection');
+    const collectionForm = $('#collectionForm');
+
+    newCollectionBtn.addEventListener('click', () => {
+      newCollectionCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      $('#colName').focus();
+    });
+
+    cancelNewCollection.addEventListener('click', () => {
+      collectionForm.reset();
+    });
+
+    collectionForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = $('#colName').value.trim();
+      const category = $('#colCategory').value.trim();
+      const desc = $('#colDesc').value.trim();
+      if (!name || !category) return alert('Preencha nome e categoria.');
+
+      const id = crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random());
+      state.collections.push({ id, name, category, desc, items: [] });
+      collectionForm.reset();
+      save();
+    });
+
+    // Modal de autenticação
+    const authModal = $('#authModal');
+    const openAuth = $('#openAuth');
+    const closeAuth = $('#closeAuth');
+    const authCancel = $('#authCancel');
+    const authForm = $('#authForm');
+
+    const openAuthModal = () => { authModal.style.display = 'flex'; $('#authName').focus(); };
+    const closeAuthModal = () => { authModal.style.display = 'none'; };
+
+    openAuth.addEventListener('click', openAuthModal);
+    closeAuth.addEventListener('click', closeAuthModal);
+    authCancel.addEventListener('click', closeAuthModal);
+    authModal.addEventListener('click', (e) => { if (e.target === authModal) closeAuthModal(); });
+
+    authForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = $('#authName').value.trim();
+      const email = $('#authEmail').value.trim();
+      if (!name || !email) return;
+      state.profile = { name, email };
+      save();
+      closeAuthModal();
+    });
+
+    // Modal de itens
+    const itemModal = $('#itemModal');
+    const closeItem = $('#closeItem');
+    const itemCancel = $('#itemCancel');
+    const itemForm = $('#itemForm');
+
+    function openItemModal(collectionId) {
+      itemModal.style.display = 'flex';
+      $('#itemCollectionId').value = collectionId;
+      $('#itemName').focus();
+    }
+    function closeItemModal() {
+      itemModal.style.display = 'none';
+      itemForm.reset();
+    }
+
+    closeItem.addEventListener('click', closeItemModal);
+    itemCancel.addEventListener('click', closeItemModal);
+    itemModal.addEventListener('click', (e) => { if (e.target === itemModal) closeItemModal(); });
+
+    itemForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const colId = $('#itemCollectionId').value;
+      const col = state.collections.find(c => c.id === colId);
+      if (!col) return closeItemModal();
+
+      const item = {
+        id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random()),
+        name: $('#itemName').value.trim(),
+        date: $('#itemDate').value || '',
+        value: parseFloat($('#itemValue').value || '0'),
+        image: $('#itemImage').value.trim(),
+        desc: $('#itemDesc').value.trim()
+      };
+      if (!item.name) return alert('Informe o nome do item.');
+      col.items = col.items || [];
+      col.items.push(item);
+      save();
+      closeItemModal();
+    });
+
+    // Configurações
+    $('#saveSettings').addEventListener('click', () => {
+      state.settings.public = $('#privacyPublic').checked;
+      state.settings.showValues = $('#privacyShowValues').checked;
+      save();
+      const msg = $('#settingsSaved');
+      msg.textContent = 'Configurações salvas';
+      msg.style.color = 'var(--success)';
+      setTimeout(() => { msg.textContent = ''; }, 2000);
+    });
+
+    // Editar perfil (atalho abre modal de auth)
+    $('#editProfileBtn').addEventListener('click', openAuthModal);
+  </script>
+</body>
+</html>
